@@ -1,9 +1,37 @@
 /* Cooper Hewitt Font Family */
 @font-face {
-    font-family: cooper-hewitt;
-    src: url("C:\Users\DELL\Downloads\cooper-hewitt.zip")
+    font-family: 'cooper-hewitt';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cooper-hewitt@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cooper-hewitt@latest/latin-400-normal.woff) format('woff'); /* Link: https://fontsource.org/fonts/cooper-hewitt/cdn */
 }
 
-body {
+* { /* Universal Selector */
     font-family: cooper-hewitt;
+}
+
+/* Navigation Bar */
+ul {
+    position: fixed; /* Keeps the navbar at the top of the screen when scrolling */
+    margin: 0; /* Resets default browser margins */
+    padding: 0; /* Resets default browser paddings */
+    overflow: hidden; /* Prevents content from spilling outside the box */
+    background-color: #000080; /* Navy */
+    width: 100%;
+
+    display: flex; /* Allows for flexible & responsive arrangement of container items */
+    justify-content: center;
+    align-items: center;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+ul li a {
+    display: block; /* The link becomes a rectangle box & looks like a button in the navbar */
+    color: #f8f8ff; /* GhostWhite */
+    padding: 16px 16px; /* padding: vertical (top & bottom) horizontal (left & right) */
+    text-decoration: none;
 }
