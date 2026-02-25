@@ -1,9 +1,0 @@
-/* Cooper Hewitt Font Family */
-@font-face {
-    font-family: cooper-hewitt;
-    src: url("C:\Users\DELL\Downloads\cooper-hewitt.zip")
-}
-
-body {
-    font-family: cooper-hewitt;
-}
