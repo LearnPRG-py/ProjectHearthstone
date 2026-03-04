@@ -1,0 +1,25 @@
+body {
+  font-family: sans-serif;
+  padding: 16px;
+}
+#wrap {
+  position: relative;
+  width: 640px;
+  height: 480px;
+}
+video,
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 640px;
+  height: 480px;
+}
+#output {
+  margin-top: 100px;
+  font-size: 2rem;
+}
+#transcript {
+  margin-top: 8px;
+  letter-spacing: 2px;
+}
