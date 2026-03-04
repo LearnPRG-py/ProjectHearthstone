@@ -1,37 +1,197 @@
-/* Cooper Hewitt Font Family */
+/* Color Scheme Media Specifications */
+:root { /* A best practice for defining global variables that can be easily reused & managed across an entire document */
+    --dark-blue: #131c4e; /* Very dark blue */
+    --mid-blue: #5b86b6; /* Medium-light, muted shade of blue */
+    --light-blue: #bbdbff; /* Pale Cornflower Blue */
+
+    --smoky-black: #0e0e0e; /* Smoky Black / Tech Black */
+}
+
+/* Cooper Hewitt Font Family
+Link: https://fontsource.org/fonts/cooper-hewitt/cdn */
 @font-face {
-    font-family: 'cooper-hewitt';
+    font-family: 'Cooper Hewitt';
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cooper-hewitt@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cooper-hewitt@latest/latin-400-normal.woff) format('woff'); /* Link: https://fontsource.org/fonts/cooper-hewitt/cdn */
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cooper-hewitt@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cooper-hewitt@latest/latin-400-normal.woff) format('woff');
 }
 
 * { /* Universal Selector */
-    font-family: cooper-hewitt;
+    font-family: 'Cooper Hewitt';
+    color: #f8f8ff; /* GhostWhite */
+}
+
+body {
+    margin: 0; /* Removes all default outer spacing (margin) */
+    padding: 0; /* Removes all default inner spacing (padding) */
 }
 
 /* Navigation Bar */
-ul {
-    position: fixed; /* Keeps the navbar at the top of the screen when scrolling */
-    margin: 0; /* Resets default browser margins */
-    padding: 0; /* Resets default browser paddings */
-    overflow: hidden; /* Prevents content from spilling outside the box */
-    background-color: #000080; /* Navy */
+nav {
+    background-color: #1a1a1a; /* Eerie Black / Gray10 / Rangoon Green */
+    position: fixed; /* Navbar stays in place on scroll
+    Removes the element from the normal document flow
+    & locks it to a specific spot (e.g., at the top of the screen) in the browser viewport */
     width: 100%;
+    top: 0; /* Right at the top - no gap */
+    left: 0;
+    z-index: 100; /* z-index = layer number/stack order
+    Higher value = shown on top
+    Lower value = hidden underneath */
 
-    display: flex; /* Allows for flexible & responsive arrangement of container items */
-    justify-content: center;
+    display: flex; /* Activates the Flexible Box Layout (Flexbox) module
+    The Parent becomes a Flex Container
+    The Children become Flex Items
+    Allows for flexible & responsive arrangement of container items */
+    align-items: center; /* Vertical centering */
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 50px;
+}
+
+nav ul {
+    list-style-type: none; /* Removes bullets */
+    margin: 0;
+    padding: 0;
+
+    display: flex; /* Keeps li items horizontal */
+    align-items: center; /* Note: The align-items: center property ONLY affects the DIRECT children of the element that has display: flex applied to it (the flex container), NOT grandchildren/more deeply nested elements. */
+    gap: 25px; /* Fixed distance between links
+    Adds space between items inside a container */
+    margin-left: auto; /* Powerful alignment trick
+    Tells the browser to take all the available empty space in a container & shove it to the left of that element
+    The element will "jump" to the far right side of its container */
+    margin-right: 50px;
+}
+
+nav ul li a {
+    display: block; /* Improves User Experience (UX): The whole box becomes a clickable area, rather than just the text itself. */
+    padding: 20px 0; /* Vertical padding only
+    Syntax: padding: vertical (top & bottom) horizontal (left & right); */
+    text-decoration: none; /* Removes underline */
+    transition: color 0.3s; /* Smooth animation for text color changes */ 
+}
+
+nav ul li a:hover { /* Pseudo-class Selector
+    Keyword added to a selector - defines a special state/position of an element, always prefixed by a single colon (:) */
+    color: var(--light-blue);
+}
+
+.btn {
+    padding: 8px 14px;
+    background-color: var(--mid-blue);
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh; /* Full screen height
+    The vh unit stands for "viewport height"
+    1vh = 1% of the viewport height */
+    width: 100%;
+    /* Placeholder background until the Art & Design members of the Marketing Department create a graphic image for the Hero Section */
+    background: linear-gradient(to bottom right, var(--smoky-black), var(--dark-blue));
+    display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-ul li {
-    list-style-type: none;
+.hero h1 {
+    font-size: 64px;
+    margin-bottom: 15px;
 }
 
-ul li a {
-    display: block; /* The link becomes a rectangle box & looks like a button in the navbar */
-    color: #f8f8ff; /* GhostWhite */
-    padding: 16px 16px; /* padding: vertical (top & bottom) horizontal (left & right) */
-    text-decoration: none;
+.hero p {
+    font-size: 20px;
+    color: var(--light-blue);
+    margin-bottom: 30px;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: var(--mid-blue);
+    border-radius: 10px;
+    cursor: pointer; /* Specifies the mouse cursor to be displayed when pointing over an element */
+    transition: transform 0.3s, background 0.3s; /* Smooth transition */
+}
+
+.hero-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--light-blue);
+    color: #000; /* Black */
+}
+
+/* Sections */
+.content {
+    padding: 50px 20%;
+    background-color: var(--smoky-black);
+}
+
+.content.light {
+    background-color: var(--dark-blue);
+}
+
+.content h2, h3 {
+    color: var(--light-blue);
+    margin-bottom: 20px;
+}
+
+.content h3 {
+    font-size: 20px;
+}
+
+/* Our Mission & Vision Section */
+.container {
+    display: flex;
+    gap: 20px; /* Space between boxes */
+}
+
+.box {
+    flex: 1; /* Allows a flex item to grow & fill the available space */
+    padding: 20px;
+    border: thick solid var(--light-blue);
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Levitation effect on hover */
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--light-blue); /* Syntax: box-shadow: h-offset v-offset blur-radius color; */
+}
+
+/* Responsive web design */
+@media (max-width: 768px) { /* 768px is the standard maximum width for tablets (specifically in portrait orientation) & large mobile devices */
+    .container {
+        flex-direction: column; /* Stack vertically, from top to bottom, rather than side-by-side */
+    }
+}
+
+/* Footer */
+footer p {
+    text-align: center;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0; /* Invisible */
+    animation: fadeIn 1.2s forwards; /* The animation-fill-mode: forwards property ensures that an element retains the style values defined in the last keyframe of its animation after the animation completes. */
+}
+
+.fade-in-delay {
+    opacity: 0;
+    animation: fadeIn 1.2s forwards;
+    animation-delay: 0.5s; /* Appears after h1 */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1; /* Visible */
+    }
 }
