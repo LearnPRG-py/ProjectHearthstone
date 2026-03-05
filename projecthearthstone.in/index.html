@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Project Hearthstone</title>
-    <!-- Link the external CSS stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <!-- Horizontal Navigation Menu -->
         <nav>
@@ -36,13 +34,16 @@
     <section class="content">
         <!-- The Problem -->
         <h2>The Exigency</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <!-- Sample Text:
-        What if your voice could not be heard?
-        Communication is a basic human need. Yet every day, millions of people struggle to be heard—not because they have nothing to say, but because society cannot understand their language.
-        There are nearly 70 million deaf and non-verbal individuals worldwide. In emergencies, classrooms, hospitals, and public spaces, communication barriers can become dangerous and socially ostracizing—this gap can lead to confusion, isolation, and missed opportunities.
-        (Link: https://www.un.org/en/observances/sign-languages-day#:~:text=According%20to%20the%20World%20Federation,than%20300%20different%20sign%20languages.)
-        Silence should never mean invisibility. That is why Project Hearthstone exists. -->
+        <p class="hook">What if your voice could not be heard?</p>
+        <p>
+            Communication is a basic human need. Yet every day, millions of people struggle to be heard—not because they have nothing to say, but because society cannot understand their language.
+        </p>
+        <p>
+            There are nearly <a class="link" href="https://www.un.org/en/observances/sign-languages-day#:~:text=According%20to%20the%20World%20Federation,than%20300%20different%20sign%20languages">70 million deaf and non-verbal individuals worldwide</a>. In emergencies, classrooms, hospitals, and public spaces, communication barriers can become dangerous and socially ostracizing. This gap can lead to confusion, isolation, and missed opportunities.
+        </p>
+        <p>
+            <strong>Silence should never mean invisibility.</strong> That is why <strong>Project Hearthstone</strong> exists.
+        </p>
     </section>
     <section class="content light">
         <!-- Introduction - About Project Hearthstone -->
@@ -72,23 +73,22 @@
         <!-- Progress Updates -->
         <h2>Updates: What We're Working On</h2>
         <!-- Update Cards -->
+        <script src="script.js"></script>
+
+        <section id="updates-section" class="updates-dark">
+            <h2 class="countdown-title" style="width: 100%; text-align: center;">Hackathon Updates!</h2>
+            <div class="updates-viewport">
+                <button class="nav-btn left" aria-label="Scroll left">&lt;</button>
+                <div class="updates-mask">
+                    <div class="updates-track" id="updates-track" role="list"></div>
+                </div>
+                <button class="nav-btn right" aria-label="Scroll right">&gt;</button>
+            </div>
+        </section>
     </section>
     <!-- Footer Section -->
     <footer class="content light">
         <p>&copy; 2026 Project Hearthstone. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
-    <!-- UPDATES SECTION -->
-    <section id="updates-section" class="updates-dark">
-    <h2 class="countdown-title" style="width: 100%; text-align: center;">Hackathon Updates!</h2>
-    <div class="updates-viewport">
-        <button class="nav-btn left" aria-label="Scroll left">&lt;</button>
-        <div class="updates-mask">
-            <div class="updates-track" id="updates-track" role="list"></div>
-        </div>
-        <button class="nav-btn right" aria-label="Scroll right">&gt;</button>
-    </div>
-    </section>
-    
 </body>
 </html>
