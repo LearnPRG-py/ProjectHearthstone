@@ -6,4 +6,4 @@ tensorflow
 numpy
 comtypes
 pandas
-Spellchecker
+pyspellchecker==0.7.2
