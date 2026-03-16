@@ -7,4 +7,3 @@ numpy
 comtypes
 pandas
 Spellchecker
-indexer
