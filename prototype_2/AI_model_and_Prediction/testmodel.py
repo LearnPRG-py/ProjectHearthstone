@@ -68,7 +68,7 @@ HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
 VisionRunningMode = mp.tasks.vision.RunningMode
 
-MODEL_PATH = os.path.join(BASE_DIR, "../../hand_landmarker.task")
+MODEL_PATH = os.path.join(BASE_DIR, "../hand_landmarker.task")
 
 def hand_callback(result, output_image, timestamp_ms):
     if not result.hand_landmarks:
