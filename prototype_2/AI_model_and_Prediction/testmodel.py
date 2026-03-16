@@ -7,10 +7,12 @@ import queue
 import platform
 import subprocess
 from spellchecker import SpellChecker
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 spell = SpellChecker()
 currentword = "";
 
-model = tf.keras.models.load_model("prototype_2/AI_model_and_Prediction/asl_cnn_model_rel.h5")
+model = tf.keras.models.load_model(os.path.join(BASE_DIR, "../AI_model_and_Prediction/asl_cnn_model_rel.h5"))
 
 class_names = [
     'A','B','C','D','E','F','G','H','I','J','K','L','M',
@@ -66,7 +68,7 @@ HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
 VisionRunningMode = mp.tasks.vision.RunningMode
 
-MODEL_PATH = "prototype_2/hand_landmarker.task"
+MODEL_PATH = os.path.join(BASE_DIR, "../../hand_landmarker.task")
 
 def hand_callback(result, output_image, timestamp_ms):
     if not result.hand_landmarks:
