@@ -50,7 +50,7 @@ def speak(text):
     else:
         subprocess.Popen(["spd-say", text])
 
-def processLabel(label):
+def process_label(label):
     global current_word
     if label == "space":
         if current_word != "":
@@ -122,11 +122,11 @@ while cam.isOpened():
             stablelabel = labelbuffer[double_letter_frames]
             if len(set(labelbuffer[single_lower_limit_index:upper_limit_index])) == 1 and labelbuffer[single_lower_limit_index] != labelbuffer[single_lower_limit_index - 1]:
                 if lastspoken != labelbuffer[double_letter_frames]:
-                    processLabel(stablelabel)
+                    process_label(stablelabel)
                     lastspoken = stablelabel
             elif len(set(labelbuffer[1:upper_limit_index])) == 1 and labelbuffer[1] != labelbuffer[0]:
                 # allow a duplicate letter here
-                processLabel(stablelabel)
+                process_label(stablelabel)
                 lastspoken = stablelabel
     except queue.Empty:
         pass
