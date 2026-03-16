@@ -20,7 +20,7 @@ class_names = [
     'del','nothing','space'
 ]
 
-def autocorrect(word):
+def auto_correct(word):
     # words like i and a:
     if len(word) <= 1:
         return word
@@ -54,7 +54,7 @@ def processLabel(label):
     global current_word
     if label == "space":
         if current_word != "":
-            corrected = autocorrect(current_word)
+            corrected = auto_correct(current_word)
             speak(corrected)
             print("Typed:", current_word, "Corrected:", corrected)
             current_word = ""
