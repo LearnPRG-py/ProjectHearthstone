@@ -10,7 +10,7 @@ from spellchecker import SpellChecker
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 spell = SpellChecker()
-currentword = "";
+current_word = "";
 
 model = tf.keras.models.load_model(os.path.join(BASE_DIR, "../AI_model_and_Prediction/asl_cnn_model_rel.h5"))
 
@@ -51,17 +51,17 @@ def speak(text):
         subprocess.Popen(["spd-say", text])
 
 def processLabel(label):
-    global currentword
+    global current_word
     if label == "space":
-        if currentword != "":
-            corrected = autocorrect(currentword)
+        if current_word != "":
+            corrected = autocorrect(current_word)
             speak(corrected)
-            print("Typed:", currentword, "Corrected:", corrected)
-            currentword = ""
+            print("Typed:", current_word, "Corrected:", corrected)
+            current_word = ""
     elif label == "del":
-        currentword = currentword[:-1]
+        current_word = current_word[:-1]
     elif label != "nothing":
-        currentword += label.lower()
+        current_word += label.lower()
 
 BaseOptions = mp.tasks.BaseOptions
 HandLandmarker = mp.tasks.vision.HandLandmarker
@@ -130,7 +130,7 @@ while cam.isOpened():
                 lastspoken = stablelabel
     except queue.Empty:
         pass
-    cv2.putText(frame, currentword, (50,50),
+    cv2.putText(frame, current_word, (50,50),
             cv2.FONT_HERSHEY_SIMPLEX, 1,
             (0,255,0), 2)
     cv2.imshow("Hand Sign Prediction", frame)
