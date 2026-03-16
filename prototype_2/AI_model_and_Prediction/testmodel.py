@@ -24,7 +24,7 @@ def auto_correct(word):
     # words like i and a:
     if len(word) <= 1:
         return word
-    #correcting the letters
+    # correcting the letters
     corrected = spell.correction(word)
     return corrected if corrected else word
 
