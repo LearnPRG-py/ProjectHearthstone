@@ -60,7 +60,7 @@ def UpdateLabelsAndOrientation():
     global target_label, target_orientation
     try:
         target_label = letterhash[input("Enter target label: ").upper()]
-    except KeyError:
+    except:
         print("Invalid label, might be on Tryjobs, if not on TryJobs, restart the program and give it another try.")
         quit()
     target_orientation = int(input(
