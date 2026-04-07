@@ -1,4 +1,5 @@
 /* Cooper Hewitt Font Family */
+@import url(Common/styles.css);
 @font-face {
     font-family: cooper-hewitt;
     src: url("C:\Users\DELL\Downloads\cooper-hewitt.zip")
@@ -6,4 +7,195 @@
 
 body {
     font-family: cooper-hewitt;
+    background-color: var(--bg-color);
+}
+
+#updates-section,
+.updates-dark {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 40px 0;
+  box-sizing: border-box;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.updates-viewport {
+  width: 100%;
+  max-width: 100%;
+  overflow:hidden;
+  margin: 0;
+  padding: 0 32px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.nav-btn {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--cl-color);
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-sizing: border-box;
+  outline-offset: 3px;
+  pointer-events: auto;
+}
+
+.nav-btn:hover {
+  transform: translateY(-52%);
+}
+
+.nav-btn.left { left: 16px; }
+.nav-btn.right { right: 16px; }
+
+.updates-mask {
+  overflow: hidden;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.updates-track {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  transition: transform 600ms cubic-bezier(.22,.9,.23,1);
+  will-change: transform;
+  padding: 12px 0 50px;
+  box-sizing: border-box;
+}
+
+.update-card {
+  flex: 0 0 360px;
+  height: 440px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 300ms, box-shadow 300ms;
+}
+
+.update-card .thumb {
+  height: 50%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  background-color: rgba(0,0,0,0.06);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.update-card .thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.update-card .meta {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-color);
+  flex: 1;
+}
+
+.update-card h3 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.update-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #bfc9cc;
+  flex: 1;
+}
+
+.update-card time {
+  font-size: 12px;
+  color: #99a3a6;
+}
+
+.importance-1 {
+  border-left: 6px solid var(--tert-accent-color);
+}
+
+.importance-2 {
+  border-left: 6px solid var(--sec-accent-color);
+}
+
+.importance-3 {
+  border-left: 6px solid var(--accent-color);
+}
+
+.update-card.center {
+  transform: scale(1.015) translateY(-8px);
+  z-index: 60;
+  box-shadow: 0 28px 70px rgba(2,6,10,0.85);
+}
+
+.update-card:focus {
+  box-shadow: 0 28px 70px rgba(2,6,10,0.9);
+  transform: translateY(-6px);
+}
+
+@media (max-width: 1200px) {
+  .update-card {
+    flex: 0 0 calc((100vw - (3 * 20px) - 32px - 32px) / 3);
+    height: 420px;
+  }
+}
+
+@media (max-width: 900px) {
+  .update-card {
+    flex: 0 0 320px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 700px) {
+  .update-card {
+    flex: 0 0 90vw;
+    height: 400px;
+  }
+  .updates-viewport {
+    padding: 0 12px;
+  }
+  .nav-btn { display: none; }
+}
+
+.side-shadow,
+.left-shadow,
+.right-shadow {
+  display: none !important;
 }
