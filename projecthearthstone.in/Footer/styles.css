@@ -1,0 +1,240 @@
+.hearthstone-footer {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 60px 0 20px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #121C4D, #0f172a);
+  color: white;
+  font-family: Segoe UI;
+  border-top: 2px solid #121C4D;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr 1fr;
+    gap: 40px;
+    padding: 0 10%;
+    max-width: 1400px;
+    margin: 0 auto 40px;
+}
+
+.footer-brand h2 {
+    font-size: 30px;
+    color: #9D97AF;
+}
+
+.tagline {
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.signal-line {
+    display: flex;
+    gap: 6px;
+}
+
+.signal-line span {
+    width: 4px;
+    height: 20px;
+    background: #9D97AF;
+    animation: pulse 1.5s infinite;
+}
+
+.signal-line span:nth-child(2) { animation-delay: .2s; }
+.signal-line span:nth-child(3) { animation-delay: .4s; }
+.signal-line span:nth-child(4) { animation-delay: .6s; }
+
+@keyframes pulse {
+    0% { height: 10px; }
+    50% { height: 30px; }
+    100% { height: 10px; }
+}
+
+.footer-mission {
+    text-align: center;
+}
+
+.footer-mission h3 {
+    color: #9D97AF;
+    margin-bottom: 10px;
+}
+
+.bridge-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 15px;
+}
+
+.node-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.node {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #9D97AF;
+    box-shadow: 0px 0px 6px #9D97AF;
+    animation: nodePulse 2s infinite;
+}
+
+.node:nth-child(2) { animation-delay: .3s; }
+.node:nth-child(3) { animation-delay: .6s; }
+
+@keyframes nodePulse {
+    0% { opacity: .4; transform: scale(.9); }
+    50% { opacity: 1; transform: scale(1.3); }
+    100% { opacity: .4; transform: scale(.9); }
+}
+
+.bridge {
+    width: 240px;
+    height: 2px;
+background: #121C4D;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+box-shadow: 0px 0px 15px rgba(157,151,175,.2);
+}
+
+.signal {
+    width: 70px;
+    height: 2px;
+    background: #9D97AF;
+    position: absolute;
+    left: -70px;
+    animation: signalMove 3s linear infinite;
+    box-shadow: 0px 0px 8px #9D97AF;
+}
+
+.signal2 {
+    animation-delay: 1.5s;
+}
+
+@keyframes signalMove {
+    0% { left: -70px; }
+    100% { left: 240px; }
+}
+
+.bridge-text {
+    margin-top: 10px;
+    opacity: .8;
+    font-size: 14px;
+}
+
+.footer-impact {
+    text-align: center;
+}
+
+.impact-number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #9D97AF;
+}
+
+.impact-text {
+    margin-top: 8px;
+}
+
+.impact-sub {
+    margin-top: 6px;
+    opacity: .7;
+    font-size: 13px;
+}
+
+.footer-links h3 {
+    color: #9D97AF;
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+    text-decoration: none;
+    opacity: .8;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: #9D97AF;
+}
+
+.footer-bottom {
+    border-top: 1px solid #121C4D;
+    padding: 15px 10% 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: .7;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-quote {
+    font-style: italic;
+}
+
+.socials {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.social-link {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:white;
+    opacity:.85;
+    transition:.2s;
+}
+
+.social-link:hover {
+    opacity:1;
+    color:#9D97AF;
+    transform:translateX(3px);
+}
+
+.icon {
+    width:18px;
+    height:18px;
+    fill:#9D97AF;
+}
+
+.stats {
+    display:flex;
+    justify-content:space-between;
+    margin-top:20px;
+}
+
+.stat {
+    text-align:center;
+}
+
+.stat-number {
+    font-size:22px;
+    font-weight:bold;
+    color:#9D97AF;
+}
+
+.stat-label {
+    font-size:12px;
+    opacity:.7;
+}
+
+.stat-label-accent {
+    font-size: 7px;
+    opacity:.7;
+}
