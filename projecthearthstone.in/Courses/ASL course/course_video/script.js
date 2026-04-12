@@ -258,9 +258,9 @@ function showToast(text, section) {
   const color = section ? section.color : 'rgba(170,85,255,1)';
   const [r, g, b] = section ? section.portalColor.split(',').map(Number) : [170, 85, 255];
   toast.style.borderColor = color;
-  toast.style.color       = color;
-  toast.style.background  = `rgba(${r},${g},${b},0.08)`;
-  toast.style.boxShadow   = `0 0 32px rgba(${r},${g},${b},0.28), 0 8px 32px rgba(0,0,0,0.6)`;
+  toast.style.color = color;
+  toast.style.background = `rgba(${r},${g},${b},0.08)`;
+  toast.style.boxShadow = `0 0 32px rgba(${r},${g},${b},0.28), 0 8px 32px rgba(0,0,0,0.6)`;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 3500);
 }
