@@ -260,7 +260,7 @@ function initPortal(wrapEl) {
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
       </defs>
-      <foreignObject width="240" height="240" clip-path="url(#cl${id})">
+      <g clip-path="url(#cl${id})"><foreignObject width="240" height="240">
         <canvas id="cv${id}" xmlns="http://www.w3.org/1999/xhtml" width="240" height="240" style="display:block"/>
       </foreignObject>
       <polygon id="ha${id}" fill="none" stroke-linejoin="miter" stroke-width="14" filter="url(#fh${id})" opacity="0"/>
