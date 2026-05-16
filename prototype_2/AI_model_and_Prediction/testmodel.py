@@ -8,17 +8,47 @@ import platform
 import subprocess
 from spellchecker import SpellChecker
 import os
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 spell = SpellChecker()
-current_word = "";
+current_word = ""
 
-model = tf.keras.models.load_model(os.path.join(BASE_DIR, "../AI_model_and_Prediction/asl_cnn_model_rel.h5"))
+model = tf.keras.models.load_model(
+    os.path.join(BASE_DIR, "../AI_model_and_Prediction/asl_cnn_model_rel.h5")
+)
 
 class_names = [
-    'A','B','C','D','E','F','G','H','I','J','K','L','M',
-    'N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-    'del','nothing','space'
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "del",
+    "nothing",
+    "space",
 ]
+
 
 def auto_correct(word):
     # words like i and a:
@@ -28,6 +58,7 @@ def auto_correct(word):
     corrected = spell.correction(word)
     return corrected if corrected else word
 
+
 lastspoken = None
 label_lock = threading.Lock()
 landmark_queue = queue.Queue(maxsize=5)
@@ -36,8 +67,9 @@ landmark_queue = queue.Queue(maxsize=5)
 first_letter_frames = 5
 double_letter_frames = 15
 
-single_lower_limit_index = double_letter_frames-first_letter_frames
+single_lower_limit_index = double_letter_frames - first_letter_frames
 upper_limit_index = double_letter_frames + 1
+
 
 def speak(text):
     system = platform.system()
@@ -45,10 +77,12 @@ def speak(text):
         subprocess.Popen(["say", text])
     elif system == "Windows":
         import comtypes.client
+
         speaker = comtypes.client.CreateObject("SAPI.SpVoice")
         speaker.Speak(text)
     else:
         subprocess.Popen(["spd-say", text])
+
 
 def process_label(label):
     global current_word
@@ -63,12 +97,14 @@ def process_label(label):
     elif label != "nothing":
         current_word += label.lower()
 
+
 BaseOptions = mp.tasks.BaseOptions
 HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
 VisionRunningMode = mp.tasks.vision.RunningMode
 
 MODEL_PATH = os.path.join(BASE_DIR, "../hand_landmarker.task")
+
 
 def hand_callback(result, output_image, timestamp_ms):
     if not result.hand_landmarks:
@@ -79,17 +115,18 @@ def hand_callback(result, output_image, timestamp_ms):
     pts = pts - ref
     pts = pts[1:]
     scale = np.max(np.linalg.norm(pts, axis=1))
-    pts /= (scale + 1e-6)
+    pts /= scale + 1e-6
     try:
         landmark_queue.put_nowait(pts)
     except queue.Full:
         pass
 
+
 options = HandLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=MODEL_PATH),
     running_mode=VisionRunningMode.LIVE_STREAM,
     num_hands=1,
-    result_callback=hand_callback
+    result_callback=hand_callback,
 )
 
 landmarker = HandLandmarker.create_from_options(options)
@@ -120,19 +157,26 @@ while cam.isOpened():
             if len(labelbuffer) < upper_limit_index:
                 continue
             stablelabel = labelbuffer[double_letter_frames]
-            if len(set(labelbuffer[single_lower_limit_index:upper_limit_index])) == 1 and labelbuffer[single_lower_limit_index] != labelbuffer[single_lower_limit_index - 1]:
+            if (
+                len(set(labelbuffer[single_lower_limit_index:upper_limit_index])) == 1
+                and labelbuffer[single_lower_limit_index]
+                != labelbuffer[single_lower_limit_index - 1]
+            ):
                 if lastspoken != labelbuffer[double_letter_frames]:
                     process_label(stablelabel)
                     lastspoken = stablelabel
-            elif len(set(labelbuffer[1:upper_limit_index])) == 1 and labelbuffer[1] != labelbuffer[0]:
+            elif (
+                len(set(labelbuffer[1:upper_limit_index])) == 1
+                and labelbuffer[1] != labelbuffer[0]
+            ):
                 # allow a duplicate letter here
                 process_label(stablelabel)
                 lastspoken = stablelabel
     except queue.Empty:
         pass
-    cv2.putText(frame, current_word, (50,50),
-            cv2.FONT_HERSHEY_SIMPLEX, 1,
-            (0,255,0), 2)
+    cv2.putText(
+        frame, current_word, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2
+    )
     cv2.imshow("Hand Sign Prediction", frame)
     if cv2.waitKey(5) & 0xFF == 27:
         break

@@ -36,8 +36,10 @@ def SuggestLabels(filename="data.csv"):
     if not os.path.exists(filename):
         return "No suggestions available"
     df = pd.read_csv(filename)
-    df['labelorientation'] = df['label'].astype(str) + " " + df['orientation'].astype(str)
-    existing_lo_counts = df['labelorientation'].value_counts()
+    df["labelorientation"] = (
+        df["label"].astype(str) + " " + df["orientation"].astype(str)
+    )
+    existing_lo_counts = df["labelorientation"].value_counts()
     all_labels = [str(i) for i in range(26)]
     all_orientations = [str(i) for i in range(1, 7)]
     missing_los = [
@@ -61,16 +63,20 @@ def UpdateLabelsAndOrientation():
     try:
         target_label = letterhash[input("Enter target label: ").upper()]
     except:
-        print("Invalid label, might be on Tryjobs, if not on TryJobs, restart the program and give it another try.")
+        print(
+            "Invalid label, might be on Tryjobs, if not on TryJobs, restart the program and give it another try."
+        )
         quit()
-    target_orientation = int(input(
-        "1) Wrist up\n"
-        "2) Wrist down\n"
-        "3) Wrist left\n"
-        "4) Wrist right\n"
-        "5) Wrist toward camera\n"
-        "6) Wrist opposite camera\n"
-    ))
+    target_orientation = int(
+        input(
+            "1) Wrist up\n"
+            "2) Wrist down\n"
+            "3) Wrist left\n"
+            "4) Wrist right\n"
+            "5) Wrist toward camera\n"
+            "6) Wrist opposite camera\n"
+        )
+    )
     if target_orientation < 1 or target_orientation > 6:
         print("Invalid orientation, try again")
         quit()
@@ -95,18 +101,23 @@ def transform_landmarks():
                 out[f"lm_{3*k}"] = xsign * x
                 out[f"lm_{3*k+1}"] = ysign * y
         return out
-    aug = pd.concat([
-        datacsv,
-        rot(datacsv, -1, 1, True),
-        rot(datacsv, -1, -1),
-        rot(datacsv, 1, -1, True),
-    ])
-    final = pd.concat([
-        aug,
-        rot(aug, -1, 1),
-        rot(aug, 1, -1),
-        rot(aug, -1, -1),
-    ])
+
+    aug = pd.concat(
+        [
+            datacsv,
+            rot(datacsv, -1, 1, True),
+            rot(datacsv, -1, -1),
+            rot(datacsv, 1, -1, True),
+        ]
+    )
+    final = pd.concat(
+        [
+            aug,
+            rot(aug, -1, 1),
+            rot(aug, 1, -1),
+            rot(aug, -1, -1),
+        ]
+    )
     final.to_csv("processeddata.csv", index=False)
     print(f"Post-processed dataset size: {len(final)}")
 
@@ -142,7 +153,7 @@ options = HandLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=MODEL_PATH),
     running_mode=VisionRunningMode.LIVE_STREAM,
     num_hands=1,
-    result_callback=hand_landmarks_callback
+    result_callback=hand_landmarks_callback,
 )
 
 landmarker = HandLandmarker.create_from_options(options)
@@ -152,15 +163,19 @@ def main():
     cap = cv2.VideoCapture(0)
     if os.path.exists("data.csv"):
         getDfForProgress = pd.read_csv("data.csv")
-        print("Welcome, total progress is: "
-              f"{len(getDfForProgress)} out of {perCategoryTarget*26} images "
-              f"or {len(getDfForProgress)*100/(perCategoryTarget*26)}%")
+        print(
+            "Welcome, total progress is: "
+            f"{len(getDfForProgress)} out of {perCategoryTarget*26} images "
+            f"or {len(getDfForProgress)*100/(perCategoryTarget*26)}%"
+        )
     else:
         print("Welcome, let us begin creating this beautiful dataset")
-    
+
     if os.path.exists("processeddata.csv"):
         getDfForProgress = pd.read_csv("processeddata.csv")
-        print(f"Processed data already exists and currently has {len(getDfForProgress)} rows")
+        print(
+            f"Processed data already exists and currently has {len(getDfForProgress)} rows"
+        )
 
     print(SuggestLabels())
     UpdateLabelsAndOrientation()
@@ -183,7 +198,7 @@ def main():
                 if char == "a":
                     limit = int(input("Enter number of frames to capture: "))
                     if limit <= 0:
-                        limit = 100 # Default value
+                        limit = 100  # Default value
                     auto = True
                     counter = 0
             else:
@@ -206,6 +221,7 @@ def main():
         flush_buffer_to_csv()
         if input("Run post-processing? (y/N): ").lower() == "y":
             transform_landmarks()
+
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,7 @@ MODEL_PATH = "../hand_landmarker.task"
 current_landmarks = None
 current_landmarks_lock = threading.Lock()
 
+
 def hand_callback(result, output_image, timestamp_ms):
     global current_landmarks
     with current_landmarks_lock:
@@ -20,11 +21,12 @@ def hand_callback(result, output_image, timestamp_ms):
         else:
             current_landmarks = None
 
+
 options = HandLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=MODEL_PATH),
     running_mode=VisionRunningMode.LIVE_STREAM,
     num_hands=2,
-    result_callback=hand_callback
+    result_callback=hand_callback,
 )
 
 landmarker = HandLandmarker.create_from_options(options)
@@ -49,13 +51,7 @@ while cam.isOpened():
         h, w, _ = frame.shape
         for hand in landmarks:
             for lm in hand:
-                cv2.circle(
-                    frame,
-                    (int(lm.x * w), int(lm.y * h)),
-                    4,
-                    (0, 255, 0),
-                    -1
-                )
+                cv2.circle(frame, (int(lm.x * w), int(lm.y * h)), 4, (0, 255, 0), -1)
 
     cv2.imshow("MediaPipe Hands", frame)
     if cv2.waitKey(5) & 0xFF == 27:
