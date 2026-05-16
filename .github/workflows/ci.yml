@@ -23,8 +23,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Install dependencies
-      - name: Install dependencies
+      # Install system dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgles2-mesa-dev
+
+      # Install python dependencies
+      - name: Install python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r deps.txt
