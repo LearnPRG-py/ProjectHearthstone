@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ASL Mastery — Course Map</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="../../../Navbar/styles.css" />
   </head>
   <body>
-    <!-- navbar looks weird on this and on the course page, will deal with it later -->
-    <!-- <div id="navbarcontainer"></div> -->
     <canvas id="star-canvas"></canvas>
     <div id="ambient-layer"></div>
     <div id="vignette"></div>
@@ -29,6 +26,32 @@
     </div>
 
     <div id="nav-cluster">
+      <div class="nav-row" style="margin-bottom: 83vh">
+        <button class="nav-btn" id="btn-courses">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M3 2.5H11.2C12.2 2.5 13 3.3 13 4.3V13.5H4.8C3.8 13.5 3 12.7 3 11.7V2.5Z"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linejoin="round"
+            />
+            <path d="M5.2 2.5V13.5" stroke="currentColor" stroke-width="1.3" />
+            <path
+              d="M7 5.2H10.5"
+              stroke="currentColor"
+              stroke-width="1.1"
+              stroke-linecap="round"
+            />
+            <path
+              d="M7 7.5H10.5"
+              stroke="currentColor"
+              stroke-width="1.1"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span>Back to all courses</span>
+        </button>
+      </div>
       <div class="nav-row">
         <button class="nav-btn" id="btn-home">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -172,8 +195,6 @@
         ></div>
       </div>
     </div>
-
-    <script type="module" src="../../../Navbar/script.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

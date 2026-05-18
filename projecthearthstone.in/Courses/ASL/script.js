@@ -835,6 +835,9 @@ window.addEventListener("resize", () => {
   updateMinimap();
 });
 
+document.getElementById("btn-courses").addEventListener("click", () => {
+  window.location.href = "../index.html";
+});
 document.getElementById("btn-home").addEventListener("click", flyToMap);
 document
   .getElementById("btn-current")
