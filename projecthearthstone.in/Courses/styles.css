@@ -87,12 +87,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   transition: all 0.4s ease;
 }
 
 .course-section:hover .course-banner::before {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
 }
 
 .course-section:hover .course-banner {
@@ -103,7 +103,7 @@ body {
 .course-title {
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 800;
-  color: rgb(247, 242, 236);
+  color: rgb(247 242 236);
   z-index: 2;
   position: relative;
   letter-spacing: -0.02em;

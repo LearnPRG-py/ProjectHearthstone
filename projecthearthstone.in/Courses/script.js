@@ -9,14 +9,14 @@ async function loadcourses() {
 }
 
 function rendercourses(courses) {
-  const container = document.getElementById("coursesContainer");
+  const container = document.getElementById("courses-container");
 
   courses.forEach((course) => {
     const firstClass = course.first ? " zafirst" : "";
     const secClass = !course.first ? " zasec" : "";
     const taglineText = course.subtitle;
     const courseHTML = `
-    <div class="course-section${firstClass}${secClass}" data-course="${course.id}" onclick=window.location.href='${course.onclick_url}'>
+    <div class="course-section${firstClass}${secClass}" data-course="${course.id}" onclick="window.location.href='${course.onclick_url}'">
         <div class="course-banner" style="background-image: url('${course.backgroundImage}')">
             <h2 class="course-title">${course.title}</h2>
             <p class="course-tagline">${taglineText}</p>
