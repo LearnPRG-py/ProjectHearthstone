@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASL Course - Playback</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../../Navbar/styles.css" />
+  </head>
+  <body>
+    <!-- <div id="navbarcontainer"></div> -->
+    <canvas id="star-canvas"></canvas>
+    <div id="loading-overlay">
+      <div class="loading-glyph">ASL Mastery</div>
+      <div class="loading-sub">Loading course…</div>
+    </div>
+    <div id="unlock-toast">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M3 8.5l3.5 3.5 6.5-7"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span id="unlock-toast-text">Lesson unlocked</span>
+    </div>
+
+    <div id="app">
+      <div id="sidebar">
+        <div id="sidebar-header">
+          <a id="btn-tree" href="../index.html" title="Return to the Tree Map">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect
+                x="7"
+                y="10"
+                width="2"
+                height="4"
+                rx="1"
+                fill="currentColor"
+                opacity="0.75"
+              />
+              <path
+                d="M8 14 C5.5 14 3.5 15.2 3.5 15.2"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                opacity="0.5"
+              />
+              <path
+                d="M8 14 C10.5 14 12.5 15.2 12.5 15.2"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                opacity="0.5"
+              />
+              <circle cx="8" cy="5.5" r="5" fill="currentColor" opacity="0.9" />
+              <circle
+                cx="4.5"
+                cy="7.5"
+                r="3"
+                fill="currentColor"
+                opacity="0.6"
+              />
+              <circle
+                cx="11.5"
+                cy="7.5"
+                r="3"
+                fill="currentColor"
+                opacity="0.6"
+              />
+            </svg>
+            Back to Tree
+          </a>
+
+          <div id="sidebar-section-name">—</div>
+          <div id="sidebar-section-desc"></div>
+        </div>
+        <div id="section-tabs"></div>
+        <div id="video-list"></div>
+      </div>
+
+      <div id="main">
+        <div id="video-frame-wrap">
+          <iframe
+            id="video-frame"
+            src="about:blank"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+            "
+            allowfullscreen
+          ></iframe>
+
+          <div id="video-locked-overlay">
+            <div class="locked-overlay-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <path
+                  d="M16 22V17a8 8 0 0116 0v5"
+                  stroke="rgba(255,255,255,0.4)"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+                <rect
+                  x="10"
+                  y="22"
+                  width="28"
+                  height="20"
+                  rx="4"
+                  fill="rgba(255,255,255,0.06)"
+                  stroke="rgba(255,255,255,0.25)"
+                  stroke-width="2"
+                />
+                <circle cx="24" cy="33" r="3" fill="rgba(255,255,255,0.3)" />
+                <line
+                  x1="24"
+                  y1="33"
+                  x2="24"
+                  y2="39"
+                  stroke="rgba(255,255,255,0.3)"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="locked-overlay-title">Lesson Locked</div>
+            <div class="locked-overlay-hint">
+              Complete the previous lesson to unlock this one.
+            </div>
+          </div>
+
+          <div id="complete-btn-wrap">
+            <button id="complete-btn">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M2.5 7.5l3 3 6-6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Mark Complete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="bottom-bar">
+        <div id="bottom-bar-left">
+          <div id="current-video-title">—</div>
+          <div id="current-video-meta"></div>
+        </div>
+        <div id="video-nav">
+          <button class="vnav-btn" id="btn-prev-vid">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path
+                d="M9 2L4.5 7 9 12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Prev Lesson
+          </button>
+          <button class="vnav-btn primary" id="btn-next-vid">
+            Next Lesson
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path
+                d="M5 2l4.5 5L5 12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../../../Navbar/script.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
