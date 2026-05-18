@@ -1,0 +1,411 @@
+{
+  "course": {
+    "title": "ASL Mastery",
+    "description": "American Sign Language from foundations to fluency"
+  },
+  "sections": [
+    {
+      "id": 1,
+      "key": "foundations",
+      "label": "Foundations",
+      "theme": "emerald",
+      "color": "#22dd88",
+      "portalColor": "34,221,136",
+      "description": "The core building blocks of ASL, including history, handshape, posture, fingerspelling, and expression.",
+      "videos": [
+        {
+          "id": "v1_1",
+          "title": "What is ASL?",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_2",
+          "title": "History of ASL",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_3",
+          "title": "Deaf Culture and Community",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_4",
+          "title": "How to Hold Your Hands and Body Posture",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_5",
+          "title": "Fingerspelling A–M",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_6",
+          "title": "Fingerspelling N–Z",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_7",
+          "title": "Numbers 1–100",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_8",
+          "title": "Eye Contact and Facial Expressions",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v1_9",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "key": "everyday-vocab",
+      "label": "Everyday Vocab",
+      "theme": "frost",
+      "color": "#4499ff",
+      "portalColor": "68,153,255",
+      "description": "Practical everyday vocabulary, including family, pronouns, places, people, and asking the six W questions.",
+      "locked": true,
+      "videos": [
+        {
+          "id": "v2_1",
+          "title": "Family Signs (Naming)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_2",
+          "title": "Pronouns and Indications",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_3",
+          "title": "Describing People, Places, and Objects",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_4",
+          "title": "At-Home Vocabulary",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_5",
+          "title": "Cities and Public Places",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_6",
+          "title": "Asking and Responding to the 6 W Questions",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_7",
+          "title": "Responding to or Asking for Help (Emergency)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v2_8",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "key": "quantity-time",
+      "label": "Quantity & Time",
+      "theme": "gold",
+      "color": "#ffaa22",
+      "portalColor": "255,170,34",
+      "description": "Numbers up to 1000, reading clocks, relative time, seasons, years, and money.",
+      "locked": true,
+      "videos": [
+        {
+          "id": "v3_1",
+          "title": "Numbers 1–1000",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v3_2",
+          "title": "Reading and Interpreting Time on a Clock",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v3_3",
+          "title": "Days, Weeks, and Months",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v3_4",
+          "title": "Relative Time (Today, Tomorrow, Yesterday…)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v3_5",
+          "title": "Seasons and Years",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v3_6",
+          "title": "Money and Prices",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v3_7",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "key": "actions-feelings",
+      "label": "Actions & Feelings",
+      "theme": "hellfire",
+      "color": "#ff5533",
+      "portalColor": "255,85,51",
+      "description": "Common action words, emotions, facial grammar, body/health markers, adverbs, and question types.",
+      "locked": true,
+      "videos": [
+        {
+          "id": "v4_1",
+          "title": "Common Action Words (Eat, Drink, Go…)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_2",
+          "title": "Negation (No, Don't, Not)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_3",
+          "title": "Emotions",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_4",
+          "title": "Facial Indicators for Emotions",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_5",
+          "title": "Body and Health Markers (Hungry, Tired, Sick…)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_6",
+          "title": "Adverbs in ASL",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_7",
+          "title": "Question Types: Yes/No vs. 6W Questions",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v4_8",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "key": "grammar",
+      "label": "ASL Grammar",
+      "theme": "toxic",
+      "color": "#66cc00",
+      "portalColor": "102,204,0",
+      "description": "ASL sentence structure, spatial references, tense, classifiers, perspective, rhetorics, and conditionals.",
+      "locked": true,
+      "videos": [
+        {
+          "id": "v5_1",
+          "title": "ASL Sentence Structure (Topic-Comment)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_2",
+          "title": "Setting Spatial References",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_3",
+          "title": "Tense Types in ASL",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_4",
+          "title": "Classifiers (Descriptive Signs)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_5",
+          "title": "Perspective and Directionality (Reflexive Verbs)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_6",
+          "title": "Rhetorical Questions",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_7",
+          "title": "Conditionals in ASL",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v5_8",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "key": "conversation",
+      "label": "Conversation",
+      "theme": "blood",
+      "color": "#cc0022",
+      "portalColor": "180,0,34",
+      "description": "Opening and closing conversations, clarification, and real-world conversational contexts.",
+      "locked": true,
+      "videos": [
+        {
+          "id": "v6_1",
+          "title": "Opening and Closing a Conversation",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v6_2",
+          "title": "Clarifying, Repeating, and Asking Again",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v6_3",
+          "title": "Medical Conversations (Vocab and Flow)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v6_4",
+          "title": "Shopping Conversations",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v6_5",
+          "title": "School and Sports Conversations",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v6_6",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "key": "fluency",
+      "label": "Fluency",
+      "theme": "arcane",
+      "color": "#aa55ff",
+      "portalColor": "140,60,255",
+      "description": "Regional variation, initialized signs, mouthing, speed reading, ASL literature, and the final challenge.",
+      "locked": true,
+      "boss": true,
+      "videos": [
+        {
+          "id": "v7_1",
+          "title": "Regional and Stylistic Variation",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v7_2",
+          "title": "Initialized Signs (F for Family, etc.)",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v7_3",
+          "title": "Mouthing Words in ASL",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v7_4",
+          "title": "Reading Fast Signers",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v7_5",
+          "title": "ASL Literature and Its Importance",
+          "youtube": "https://www.youtube.com",
+          "duration": ""
+        },
+        {
+          "id": "v7_6",
+          "title": "Unit Test",
+          "youtube": "https://www.youtube.com",
+          "duration": "",
+          "isTest": true
+        }
+      ]
+    }
+  ]
+}
