@@ -1,87 +1,735 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
-    <link rel="stylesheet" href="../Navbar/styles.css" />
-    <title>Project Hearthstone - Home Page</title>
-  </head>
-  <body>
-    <div id="navbarcontainer"></div>
-    <script type="module" src="../Navbar/script.js"></script>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Project Hearthstone - About</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap');
 
-    <div class="hero-image-container">
-      <img src="src/Placeholder.png" alt="Placeholder Image" />
+  :root {
+    --primary-dark: #020204;
+    --primary-light: #F7F7F7;
+    --highlight: #00D4FF;
+    --mid: #0052D4;
+    --deep: #001A33;
+    --active: #00FF41;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(247,247,247,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--primary-dark);
+  }
+  .nav-logo span { color: var(--mid); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--primary-dark);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,82,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,82,212,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift { to { background-position: 60px 60px; } }
+
+  .hero-accent {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-content { position: relative; max-width: 760px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,82,212,0.08);
+    border: 1px solid rgba(0,82,212,0.15);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--active);
+    animation: blink 2s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    color: var(--primary-dark);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--mid);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(2,2,4,0.55);
+    max-width: 520px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--primary-dark);
+    color: var(--primary-light);
+    border: none;
+    border-radius: 100px;
+    padding: 16px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .hero-cta:hover { background: var(--mid); transform: translateY(-2px); }
+  .hero-cta .arrow { transition: transform 0.2s; }
+  .hero-cta:hover .arrow { transform: translateX(4px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px; left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: rgba(2,2,4,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+  .hero-scroll-line {
+    width: 40px; height: 1px;
+    background: rgba(2,2,4,0.2);
+    animation: lineGrow 1s 1.5s ease forwards;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @keyframes lineGrow { to { transform: scaleX(1); } }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ABOUT */
+  .about {
+    background: white;
+    padding: 100px 48px;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .about-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 48px;
+    grid-column: 1 / -1;
+  }
+  .about-heading em { font-style: italic; font-weight: 300; color: var(--mid); }
+
+  .about-card {
+    background: var(--primary-light);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 24px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s;
+    cursor: default;
+  }
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(to bottom, var(--highlight), var(--mid));
+    transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .about-card:hover::before { height: 100%; }
+  .about-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(0,82,212,0.1);
+  }
+  .about-card-num {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: rgba(0,82,212,0.08);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .about-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  .about-card p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(2,2,4,0.55);
+  }
+
+  .about-visual {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    background: linear-gradient(135deg, var(--deep) 0%, #002855 100%);
+    border-radius: 32px;
+    padding: 48px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 480px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-visual::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.08);
+  }
+  .about-visual-stat {
+    font-family: 'Fraunces', serif;
+    font-size: 72px;
+    font-weight: 600;
+    color: var(--highlight);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .about-visual-label {
+    font-size: 14px;
+    opacity: 0.6;
+    margin-bottom: 40px;
+  }
+  .about-visual-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .about-visual-tag {
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--highlight);
+  }
+
+  /* PROBLEM / SOLUTION */
+  .problem-solution {
+    background: var(--deep);
+    color: white;
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ps-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,255,65,0.015) 2px, rgba(0,255,65,0.015) 4px
+    );
+    pointer-events: none;
+  }
+  .ps-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+
+  .ps-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 60px;
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .ps-pane { padding: 60px 48px; position: relative; }
+  .ps-pane.problem {
+    background: rgba(255,255,255,0.02);
+    border-right: 1px solid rgba(0,212,255,0.1);
+  }
+  .ps-pane.solution { background: rgba(0,212,255,0.03); }
+  .ps-pane-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .ps-pane.problem .ps-pane-tag { color: rgba(255,255,255,0.35); }
+  .ps-pane.solution .ps-pane-tag { color: var(--highlight); }
+  .ps-pane h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .ps-pane.problem h2 { color: rgba(255,255,255,0.65); }
+  .ps-pane.solution h2 { color: white; }
+  .ps-pane p { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.45); max-width: 380px; }
+  .ps-pane.solution p { color: rgba(255,255,255,0.6); }
+  .ps-icon {
+    position: absolute;
+    top: 48px; right: 48px;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .ps-icon.prob { background: rgba(255,255,255,0.05); }
+  .ps-icon.sol { background: rgba(0,212,255,0.1); }
+
+  .ps-project {
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 24px;
+    padding: 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ps-project::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--highlight), transparent);
+  }
+  .ps-project-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -2px;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .ps-project-title span { color: var(--highlight); }
+  .ps-project p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.5);
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+  .ps-terminal {
+    background: rgba(0,255,65,0.04);
+    border: 1px solid rgba(0,255,65,0.12);
+    border-radius: 12px;
+    padding: 20px 24px;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+  }
+  .ps-terminal-line {
+    color: var(--active);
+    margin-bottom: 4px;
+    opacity: 0;
+    animation: terminalType 0.3s forwards;
+  }
+  .ps-terminal-line:nth-child(1) { animation-delay: 0.2s; }
+  .ps-terminal-line:nth-child(2) { animation-delay: 0.8s; }
+  .ps-terminal-line:nth-child(3) { animation-delay: 1.4s; }
+  .ps-terminal-line:nth-child(4) { animation-delay: 2.0s; }
+  .ps-terminal-line .dim { color: rgba(0,255,65,0.4); }
+  @keyframes terminalType { to { opacity: 1; } }
+
+  /* FAQ */
+  #faq {
+    background: var(--primary-light);
+    padding: 100px 48px;
+  }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 600;
+    letter-spacing: -2px;
+    margin-bottom: 56px;
+    line-height: 1.05;
+  }
+  .faq-item {
+    border-top: 1px solid rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .faq-item:last-child { border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .faq-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--primary-dark);
+    text-align: left;
+    transition: color 0.2s;
+  }
+  .faq-btn:hover { color: var(--mid); }
+  .faq-btn.active { color: var(--mid); }
+  .faq-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 20px;
+    transition: background 0.3s, transform 0.4s, border-color 0.3s;
+  }
+  .faq-btn.active .faq-icon {
+    background: var(--mid);
+    border-color: var(--mid);
+    transform: rotate(45deg);
+  }
+  .faq-icon svg { width: 12px; height: 12px; }
+  .faq-btn.active .faq-icon svg path { stroke: white; }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .faq-answer.open { max-height: 300px; }
+  .faq-answer-inner {
+    padding: 0 0 28px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(2,2,4,0.55);
+    max-width: 600px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: rgba(0,0,0,0.06);
+    margin: 0 48px;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Project <span>Hearthstone</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#problem">Mission</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Active Project — 2025</div>
+    <h1 class="hero-title">Where <em>sign</em><br>meets <em>signal.</em></h1>
+    <p class="hero-sub">Project Hearthstone bridges the gap between American Sign Language and the world — making communication effortless, accessible, and human.</p>
+    <a href="#about" class="hero-cta">
+      Discover the mission
+      <span class="arrow">→</span>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-heading reveal">
+      Built from<br><em>empathy,</em><br>designed for<em> everyone.</em>
     </div>
 
-    <div class="section" id="about-us">
-      <h1>About Project Hearthstone</h1>
-      <div id="vertical-columns">
-        <div id="about-us-text">
-          <div class="about-us-text-section">
-            <h2>The Origin</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
-          <div class="about-us-text-section">
-            <h2>The Inspiration</h2>
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum.
-            </p>
-          </div>
-        </div>
-        <div id="about-us-image">
-          <img
-            src="src/hearthstone.webp"
-            alt="Image of Hearthstone from Magnus Chase"
-          />
-        </div>
+    <div class="about-card reveal reveal-delay-1">
+      <div class="about-card-num">01</div>
+      <h3>The Origin</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+    </div>
+
+    <div class="about-visual reveal reveal-delay-2">
+      <div>
+        <div class="about-visual-stat">40M+</div>
+        <div class="about-visual-label">Deaf and hard-of-hearing people in the US</div>
+        <div class="about-visual-stat" style="font-size:48px;color:var(--active);margin-top:32px;">Real-time</div>
+        <div class="about-visual-label">ASL recognition & translation</div>
+      </div>
+      <div class="about-visual-tags">
+        <span class="about-visual-tag">Computer Vision</span>
+        <span class="about-visual-tag">Machine Learning</span>
+        <span class="about-visual-tag">ASL</span>
+        <span class="about-visual-tag">Accessibility</span>
+        <span class="about-visual-tag">Open Source</span>
       </div>
     </div>
 
-    <div class="container">
-      <div class="top-image">
-        <img src="asl-problem.png" alt="Problem" class="problem-img" />
-        <img src="asl-solution.png" alt="Solution" />
+    <div class="about-card reveal reveal-delay-3" style="margin-top:-20px;">
+      <div class="about-card-num">02</div>
+      <h3>The Inspiration</h3>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM / SOLUTION -->
+<section class="problem-solution" id="problem">
+  <div class="ps-scanlines"></div>
+  <div class="ps-inner">
+    <div class="section-label" style="color:rgba(0,212,255,0.6);margin-bottom:48px;">
+      <span style="width:24px;height:1px;background:rgba(0,212,255,0.4);display:inline-block;"></span>
+      The Mission
+    </div>
+
+    <div class="ps-top reveal">
+      <div class="ps-pane problem">
+        <div class="ps-pane-tag">The Problem</div>
+        <div class="ps-icon prob">🚫</div>
+        <h2>Communication is broken for the Deaf community.</h2>
+        <p>Add your problem description here. Explain the gap between ASL users and hearing people that Project Hearthstone aims to close.</p>
       </div>
-
-      <div class="row">
-        <div class="box">
-          <div class="title problem">PROBLEM</div>
-          <div class="desc">add text here</div>
-        </div>
-
-        <div class="box">
-          <div class="title solution">SOLUTION</div>
-          <div class="desc">Add text here</div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="project-box">
-        <div class="project-title">PROJECT HEARTHSTONE</div>
-        <div class="project-desc">Add text here .</div>
+      <div class="ps-pane solution">
+        <div class="ps-pane-tag">Our Solution</div>
+        <div class="ps-icon sol">✦</div>
+        <h2>Real-time ASL translation, powered by AI.</h2>
+        <p>Add your solution description here. Describe how Project Hearthstone uses computer vision and ML to translate sign language instantly.</p>
       </div>
     </div>
 
-    <div class="divider-box"><div class="divider-line"></div></div>
-
-    <div class="section" id="faq">
-      <h1>Frequently Asked Questions</h1>
-
-      <ul id="faq-list"></ul>
+    <div class="ps-project reveal reveal-delay-2">
+      <div class="ps-project-title">Project <span>Hearthstone</span></div>
+      <p>Add your full project description here. This is the heart of your mission — make it count.</p>
+      <div class="ps-terminal">
+        <div class="ps-terminal-line"><span class="dim">$</span> initializing hearthstone.model</div>
+        <div class="ps-terminal-line"><span class="dim">→</span> gesture recognition: <span style="color:var(--active);">ACTIVE</span></div>
+        <div class="ps-terminal-line"><span class="dim">→</span> translation pipeline: <span style="color:var(--active);">ONLINE</span></div>
+        <div class="ps-terminal-line"><span class="dim">→</span> ready. <span style="color:var(--highlight);">bridge established.</span></div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="divider-box"><div class="divider-line"></div></div>
-  </body>
+<div class="divider"></div>
+
+<!-- FAQ -->
+<div id="faq">
+  <div class="faq-inner">
+    <div class="section-label reveal">FAQ</div>
+    <h2 class="faq-heading reveal reveal-delay-1">Got questions?<br>We've got answers.</h2>
+    <div id="faq-list" class="reveal reveal-delay-2"></div>
+  </div>
+</div>
+
+<script>
+  // ── FAQ DATA — edit these ──────────────────────────────────────────────────
+  const faqData = [
+    {
+      question: "What is Project Hearthstone?",
+      answer: "Project Hearthstone is an AI-powered tool that translates American Sign Language into text in real time, helping bridge the communication gap between the Deaf community and hearing people."
+    },
+    {
+      question: "How does the ASL recognition work?",
+      answer: "We use computer vision and a custom-trained machine learning model to detect hand gestures via a standard webcam and map them to ASL signs and their meanings."
+    },
+    {
+      question: "Is it free to use?",
+      answer: "Yes — Project Hearthstone is an open-source project with a mission to make accessibility tools available to everyone, free of charge."
+    },
+    {
+      question: "What signs does it currently support?",
+      answer: "Add your answer here. Describe the current ASL vocabulary, fingerspelling support, and any limitations."
+    },
+    {
+      question: "How can I contribute to the project?",
+      answer: "Add your answer here. Link to your GitHub, contribution guidelines, or contact info."
+    }
+  ];
+
+  // ── Build FAQ ──────────────────────────────────────────────────────────────
+  const list = document.getElementById('faq-list');
+  faqData.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'faq-item';
+    el.innerHTML = `
+      <button class="faq-btn" aria-expanded="false">
+        ${item.question}
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 1V11M1 6H11" stroke="#020204" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">${item.answer}</div>
+      </div>
+    `;
+    const btn = el.querySelector('.faq-btn');
+    const ans = el.querySelector('.faq-answer');
+    btn.addEventListener('click', () => {
+      const isOpen = btn.classList.contains('active');
+      document.querySelectorAll('.faq-btn.active').forEach(b => {
+        b.classList.remove('active');
+        b.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        btn.classList.add('active');
+        ans.classList.add('open');
+      }
+    });
+    list.appendChild(el);
+  });
+
+  // ── Scroll reveal ──────────────────────────────────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
 </html>
