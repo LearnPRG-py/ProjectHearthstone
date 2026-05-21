@@ -2,10 +2,10 @@
    home.js  —  Project Hearthstone
    All observers are PERSISTENT: class is added
    when entering view and REMOVED when leaving,
-   so animations replay every time.
+   so animations replay and reverse every time.
 ═══════════════════════════════════════════════ */
 
-/* ── Utility: one-shot IntersectionObserver (fires once per element, never hides) ── */
+/* ── Persistent IntersectionObserver helper ── */
 function watch(selector, onEnter, onLeave, opts) {
   var els = typeof selector === "string"
     ? document.querySelectorAll(selector)
@@ -16,10 +16,11 @@ function watch(selector, onEnter, onLeave, opts) {
     entries.forEach(function (e) {
       if (e.isIntersecting) {
         onEnter(e.target);
-        io.unobserve(e.target);
+      } else if (onLeave) {
+        onLeave(e.target);
       }
     });
-  }, opts || { threshold: 0.08, rootMargin: "0px 0px 0px 0px" });
+  }, opts || { threshold: 0.08 });
 
   if (els.forEach) {
     els.forEach(function (el) { io.observe(el); });
@@ -34,16 +35,10 @@ function watch(selector, onEnter, onLeave, opts) {
   var bar = document.createElement("div");
   bar.id = "hs-progress";
   Object.assign(bar.style, {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    height: "3px",
-    width: "0%",
-    zIndex: "9999",
-    pointerEvents: "none",
+    position: "fixed", top: "0", left: "0", height: "3px", width: "0%",
+    zIndex: "9999", pointerEvents: "none",
     background: "linear-gradient(90deg,#0052D4 0%,#00D4FF 55%,#FF6B35 100%)",
-    boxShadow: "0 0 10px rgba(0,82,212,0.4)",
-    transition: "width 0.12s linear",
+    boxShadow: "0 0 10px rgba(0,82,212,0.4)", transition: "width 0.12s linear",
   });
   document.body.appendChild(bar);
   window.addEventListener("scroll", function () {
@@ -61,12 +56,11 @@ function watch(selector, onEnter, onLeave, opts) {
   }, { passive: true });
 })();
 
-/* ── .reveal-item  (fade up) ── */
+/* ── .reveal-item (fade up / fade down on leave) ── */
 (function () {
   var items = document.querySelectorAll(".reveal-item");
   if (!items.length) return;
 
-  /* Auto-stagger items inside .reveal-group */
   document.querySelectorAll(".reveal-group").forEach(function (group) {
     group.querySelectorAll(".reveal-item").forEach(function (child, i) {
       if (!child.style.getPropertyValue("--delay")) {
@@ -92,25 +86,24 @@ function watch(selector, onEnter, onLeave, opts) {
   );
 })();
 
-/* ── Exigency headline + intro ── */
+/* ── Exigency headline + intro (reverse on leave) ── */
 (function () {
   var header = document.querySelector(".exigency-header");
   if (!header) return;
 
-  var label  = header.querySelector(".section-label");
-  var lines  = header.querySelectorAll(".headline-line-inner");
-  var intro  = header.querySelector(".exigency-intro");
+  var label = header.querySelector(".section-label");
+  var lines = header.querySelectorAll(".headline-line-inner");
+  var intro = header.querySelector(".exigency-intro");
 
-  new IntersectionObserver(function (entries, obs) {
-    if (!entries[0].isIntersecting) return;
-    if (label) label.classList.add("visible");
-    lines.forEach(function (line) { line.classList.add("visible"); });
-    if (intro) intro.classList.add("visible");
-    obs.disconnect();
+  new IntersectionObserver(function (entries) {
+    var isIn = entries[0].isIntersecting;
+    if (label) label.classList.toggle("visible", isIn);
+    lines.forEach(function (line) { line.classList.toggle("visible", isIn); });
+    if (intro) intro.classList.toggle("visible", isIn);
   }, { threshold: 0.2 }).observe(header);
 })();
 
-/* ── Stat bars + count-up ── */
+/* ── Stat bars + count-up (reverse on leave) ── */
 (function () {
   var bars  = document.querySelectorAll(".stat-bar");
   var fills = document.querySelectorAll(".stat-bar-fill[data-width]");
@@ -131,19 +124,27 @@ function watch(selector, onEnter, onLeave, opts) {
     })(start);
   }
 
-  new IntersectionObserver(function (entries, obs) {
-    if (!entries[0].isIntersecting) return;
-    obs.disconnect();
+  function reset() {
+    bars.forEach(function (bar) { bar.classList.remove("visible"); });
+    fills.forEach(function (fill) { fill.style.transition = "none"; fill.style.width = "0%"; });
+    nums.forEach(function (el) { el.textContent = "0"; });
+  }
 
+  function play() {
     bars.forEach(function (bar, i) {
       setTimeout(function () { bar.classList.add("visible"); }, i * 130);
     });
-
     fills.forEach(function (fill, i) {
-      setTimeout(function () { fill.style.width = fill.dataset.width + "%"; }, 180 + i * 150);
+      setTimeout(function () {
+        fill.style.transition = "width 1.6s cubic-bezier(0.22,1,0.36,1)";
+        fill.style.width = fill.dataset.width + "%";
+      }, 180 + i * 150);
     });
-
     nums.forEach(function (el) { countUp(el); });
+  }
+
+  new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) { play(); } else { reset(); }
   }, { threshold: 0.2 }).observe(wrap);
 })();
 
@@ -153,7 +154,6 @@ function watch(selector, onEnter, onLeave, opts) {
   var content = document.querySelector(".hero-content");
   if (!img) return;
   var ticking = false;
-
   window.addEventListener("scroll", function () {
     if (ticking) return;
     ticking = true;
@@ -166,7 +166,7 @@ function watch(selector, onEnter, onLeave, opts) {
   }, { passive: true });
 })();
 
-/* ── Bento / callout 3-D tilt on mousemove ── */
+/* ── Bento / callout 3-D tilt ── */
 (function () {
   document.querySelectorAll(".bento-card, .mv-callout, .stat-card").forEach(function (card) {
     card.addEventListener("mousemove", function (e) {
@@ -205,13 +205,8 @@ function watch(selector, onEnter, onLeave, opts) {
   if (window.matchMedia("(pointer:coarse)").matches) return;
   var glow = document.createElement("div");
   Object.assign(glow.style, {
-    position: "fixed",
-    width: "420px",
-    height: "420px",
-    borderRadius: "50%",
-    pointerEvents: "none",
-    zIndex: "0",
-    transform: "translate(-50%,-50%)",
+    position: "fixed", width: "420px", height: "420px", borderRadius: "50%",
+    pointerEvents: "none", zIndex: "0", transform: "translate(-50%,-50%)",
     background: "radial-gradient(circle, rgba(0,82,212,0.05) 0%, transparent 66%)",
     transition: "opacity .3s",
   });
@@ -222,24 +217,22 @@ function watch(selector, onEnter, onLeave, opts) {
     if (!running) { running = true; requestAnimationFrame(lerp); }
   });
   function lerp() {
-    cx += (mx - cx) * 0.09;
-    cy += (my - cy) * 0.09;
-    glow.style.left = cx + "px";
-    glow.style.top  = cy + "px";
+    cx += (mx - cx) * 0.09; cy += (my - cy) * 0.09;
+    glow.style.left = cx + "px"; glow.style.top = cy + "px";
     running = Math.abs(mx - cx) > 0.5 || Math.abs(my - cy) > 0.5;
     if (running) requestAnimationFrame(lerp);
   }
 })();
 
-/* ── About card floating pills ── */
+/* ── About card floating pills (reverse on leave) ── */
 (function () {
   var card = document.querySelector(".about-visual-card");
   if (!card) return;
   var pills = card.querySelectorAll(".avc-pill");
 
   pills.forEach(function (p) {
-    p.style.opacity   = "0";
-    p.style.transform = "translateY(12px)";
+    p.style.opacity    = "0";
+    p.style.transform  = "translateY(12px)";
     p.style.transition = "opacity .6s var(--ease-expo), transform .6s var(--ease-expo)";
   });
 
@@ -247,13 +240,9 @@ function watch(selector, onEnter, onLeave, opts) {
     var isIn = entries[0].isIntersecting;
     pills.forEach(function (p, i) {
       if (isIn) {
-        setTimeout(function () {
-          p.style.opacity   = "1";
-          p.style.transform = "";
-        }, 200 + i * 100);
+        setTimeout(function () { p.style.opacity = "1"; p.style.transform = ""; }, 200 + i * 100);
       } else {
-        p.style.opacity   = "0";
-        p.style.transform = "translateY(12px)";
+        p.style.opacity = "0"; p.style.transform = "translateY(12px)";
       }
     });
   }, { threshold: 0.3 }).observe(card);
@@ -266,14 +255,12 @@ function watch(selector, onEnter, onLeave, opts) {
     if (!num) return;
     new IntersectionObserver(function (entries) {
       num.style.transition = "color 1s ease";
-      num.style.color = entries[0].isIntersecting
-        ? "rgba(0,82,212,0.12)"
-        : "var(--bg-3)";
+      num.style.color = entries[0].isIntersecting ? "rgba(0,82,212,0.12)" : "var(--bg-3)";
     }, { threshold: 0.4 }).observe(row);
   });
 })();
 
-/* ── Bento card entrance ── */
+/* ── Bento card entrance (reverse on leave) ── */
 (function () {
   var bentoCards = document.querySelectorAll(".bento-card");
   if (!bentoCards.length) return;
@@ -281,18 +268,21 @@ function watch(selector, onEnter, onLeave, opts) {
   bentoCards.forEach(function (card) {
     card.style.opacity   = "0";
     card.style.transform = "scale(0.92) translateY(28px)";
+    card.style.transition = "opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)";
   });
 
   watch(bentoCards,
     function (el) {
       var idx = Array.from(bentoCards).indexOf(el);
       setTimeout(function () {
-        el.style.transition = "opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)";
-        el.style.opacity    = "1";
-        el.style.transform  = "";
+        el.style.opacity   = "1";
+        el.style.transform = "";
       }, idx * 100);
     },
-    null,
+    function (el) {
+      el.style.opacity   = "0";
+      el.style.transform = "scale(0.92) translateY(28px)";
+    },
     { threshold: 0.1 }
   );
 })();
@@ -327,31 +317,25 @@ document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     requestAnimationFrame(function () { updatePosition(false); });
     attachListeners();
 
-    // Animate cards when the section scrolls into view
     var section = document.querySelector(".updates-section");
     if (section) {
-      var cardAnimDone = false;
-      new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting && !cardAnimDone) {
-          cardAnimDone = true;
-          TRACK.querySelectorAll(".update-card").forEach(function(card, i) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          TRACK.querySelectorAll(".update-card").forEach(function (card, i) {
             card.style.opacity = "0";
             card.style.transform = "translateY(36px) scale(0.93)";
             card.style.transition = "none";
-            setTimeout(function() {
+            setTimeout(function () {
               card.style.transition =
                 "opacity 0.6s cubic-bezier(0.16,1,0.3,1) " + (i * 0.07) + "s, " +
-                "transform 0.6s cubic-bezier(0.16,1,0.3,1) " + (i * 0.07) + "s, " +
-                "box-shadow 0.35s";
+                "transform 0.6s cubic-bezier(0.16,1,0.3,1) " + (i * 0.07) + "s, box-shadow 0.35s";
               card.style.opacity = "1";
               card.style.transform = "";
             }, 40);
           });
-        } else if (!entries[0].isIntersecting) {
-          // Reset so it replays on re-entry
-          cardAnimDone = false;
-          TRACK.querySelectorAll(".update-card").forEach(function(card) {
-            card.style.transition = "none";
+        } else {
+          TRACK.querySelectorAll(".update-card").forEach(function (card) {
+            card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
             card.style.opacity = "0";
             card.style.transform = "translateY(36px) scale(0.93)";
           });
@@ -369,8 +353,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       card.setAttribute("role", "listitem");
       card.dataset.index = i;
 
-      var imgDiv = document.createElement("div");
-      imgDiv.className = "thumb";
+      var imgDiv = document.createElement("div"); imgDiv.className = "thumb";
       var img = document.createElement("img");
       img.src = u.image; img.alt = u.title || "Update " + (i + 1); img.loading = "lazy";
       imgDiv.appendChild(img);
@@ -384,7 +367,9 @@ document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       card.appendChild(imgDiv); card.appendChild(meta);
       TRACK.appendChild(card);
     });
-    requestAnimationFrame(function () { TRACK.style.paddingLeft = "0px"; TRACK.style.paddingRight = "0px"; setCenterClass(); });
+    requestAnimationFrame(function () {
+      TRACK.style.paddingLeft = "0px"; TRACK.style.paddingRight = "0px"; setCenterClass();
+    });
   }
 
   function cardDimensions() {
@@ -431,8 +416,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     var mask = TRACK.parentElement;
     var dragging = false, startX = 0, startTranslate = 0;
     mask.addEventListener("pointerdown", function (e) {
-      dragging = true; startX = e.clientX;
-      TRACK.style.transition = "none";
+      dragging = true; startX = e.clientX; TRACK.style.transition = "none";
       startTranslate = (new DOMMatrixReadOnly(window.getComputedStyle(TRACK).transform)).m41 || 0;
       if (mask.setPointerCapture) mask.setPointerCapture(e.pointerId);
     });
@@ -441,8 +425,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       TRACK.style.transform = "translateX(" + Math.round(startTranslate + e.clientX - startX) + "px)";
     });
     mask.addEventListener("pointerup", function (e) {
-      if (!dragging) return; dragging = false;
-      TRACK.style.transition = "";
+      if (!dragging) return; dragging = false; TRACK.style.transition = "";
       var dims = cardDimensions();
       var deltaIndex = Math.round(-(e.clientX - startX) / (dims.w + dims.gap));
       activeIndex = Math.max(0, Math.min(updates.length - 1, activeIndex + deltaIndex));
@@ -460,14 +443,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function (a) {
   }
 })();
 
-/* ── Founder card directional entrance ── */
+/* ── Founder card directional entrance (reverse on leave) ── */
+/* ── Founder card directional entrance (reverse on leave) ── */
 (function () {
   var cards = document.querySelectorAll(".founder-card");
   if (!cards.length) return;
   watch(
     cards,
     function (el) { el.classList.add("is-visible"); },
-    null,
-    { threshold: 0.15 }
+    function (el) { el.classList.remove("is-visible"); },
+    { threshold: 0.25 }   // was 0.15
   );
 })();
