@@ -12,9 +12,15 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 spell = SpellChecker()
 current_word = ""
+first_person = True
 
 model = tf.keras.models.load_model(
-    os.path.join(BASE_DIR, "../AI_model_and_Prediction/asl_cnn_model_rel.h5")
+    os.path.join(
+        BASE_DIR,
+        "../AI_model_and_Prediction/hearthstone_fingerspelling_AI"
+        + ("_firstperson" if first_person else "_thirdperson")
+        + ".keras",
+    )
 )
 
 class_names = [
