@@ -13,8 +13,14 @@ in the python version.
 import tensorflow as tf
 import os
 
+first_person = True
+
 # [1]
-model = tf.keras.models.load_model("asl_cnn_model_rel.h5")
+model = tf.keras.models.load_model(
+    "../AI_model_and_Prediction/hearthstone_fingerspelling_AI"
+    + ("_firstperson" if first_person else "_thirdperson")
+    + ".keras",
+)
 
 # [2]
 inp = tf.keras.Input(shape=(20, 3), name="input_layer")
