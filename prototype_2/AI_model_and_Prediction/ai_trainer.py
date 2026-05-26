@@ -22,6 +22,7 @@ EPOCHS = 50
 BATCH_SIZE = 64
 MODEL_SAVE_PATH = "asl_cnn_model_29cls_rel"
 RANDOM_SEED = 42
+first_person = True
 np.random.seed(RANDOM_SEED)
 tf.random.set_seed(RANDOM_SEED)
 
@@ -46,6 +47,9 @@ def preprocess_sample(sample):
     ref = pts[0]                        # wrist anchor
     pts -= ref                          # make all points relative to wrist
     pts = pts[1:]                       # optionally remove wrist itself
+    if first_person:
+        pts[:, 0] *= -1                     # flip X axis for first-person / depth inversion
+        pts[:, 2] *= -1                     # flip Z axis for depth inversion
     scale = np.max(np.linalg.norm(pts, axis=1))
     pts /= (scale + 1e-6)               # normalize scale
     return pts
